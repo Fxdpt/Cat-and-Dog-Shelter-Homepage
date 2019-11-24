@@ -2,14 +2,9 @@
 
 namespace App\Models;
 
-class UserModel {
+use PDO;
 
-    /**
-     * User id
-     *
-     * @var int
-     */
-    private $id;
+class UserModel {
 
     /**
      * User username
@@ -39,28 +34,18 @@ class UserModel {
      */
     private $role;
 
-    const TABLE = 'user';
+    const TABLE_NAME = 'user';
 
     /************************************** */
     //          GETTERS & SETTERS
     /************************************** */
 
     /**
-     * Get user id
-     *
-     * @return  int
-     */ 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Get user username
      *
      * @return  string
      */ 
-    public function getUsername()
+    public function getUsername() : string
     {
         return $this->username;
     }
@@ -72,7 +57,7 @@ class UserModel {
      *
      * @return  self
      */ 
-    public function setUsername(string $username)
+    public function setUsername(string $username) : self
     {
         $this->username = $username;
 
@@ -84,7 +69,7 @@ class UserModel {
      *
      * @return  string
      */ 
-    public function getPassword()
+    public function getPassword() : string
     {
         return $this->password;
     }
@@ -96,7 +81,7 @@ class UserModel {
      *
      * @return  self
      */ 
-    public function setPassword(string $password)
+    public function setPassword(string $password) : self
     {
         $this->password = $password;
 
@@ -108,7 +93,7 @@ class UserModel {
      *
      * @return  string
      */ 
-    public function getEmail()
+    public function getEmail() : string
     {
         return $this->email;
     }
@@ -120,7 +105,7 @@ class UserModel {
      *
      * @return  self
      */ 
-    public function setEmail(string $email)
+    public function setEmail(string $email) : self
     {
         $this->email = $email;
 
@@ -132,7 +117,7 @@ class UserModel {
      *
      * @return  int
      */ 
-    public function getRole()
+    public function getRole() : int
     {
         return $this->role;
     }
@@ -144,7 +129,7 @@ class UserModel {
      *
      * @return  self
      */ 
-    public function setRole(int $role)
+    public function setRole(int $role) : self
     {
         $this->role = $role;
 
@@ -180,7 +165,7 @@ class UserModel {
 
         $sql = "
         SELECT *
-        FROM `".self::TABLE."`
+        FROM `".self::TABLE_NAME."`
         WHERE id = :id
         ";
 
@@ -202,7 +187,7 @@ class UserModel {
     {
         $sql = "
         SELECT *
-        FROM `".self::TABLE;
+        FROM `".self::TABLE_NAME;
 
         $pdo = Database::getPDO();
         $pdoStatement = $pdo->query($sql);
@@ -220,7 +205,7 @@ class UserModel {
     public function insert() : bool 
     {
         $sql= "
-        INSERT INTO `".self::TABLE."` VALUES (`username`,`password`,`email`,`role`)
+        INSERT INTO `".self::TABLE_NAME."`(`username`,`password`,`email`,`role`)
         VALUES(
             :username,
             :password,
@@ -251,7 +236,7 @@ class UserModel {
     public function update() : bool
     {
         $sql = "
-        UPDATE `".self::TABLE."`
+        UPDATE `".self::TABLE_NAME."`
         SET
             username = :username,
             password = password,
@@ -281,7 +266,7 @@ class UserModel {
     {
         $sql = "
         DELETE 
-        FROM `animal`
+        FROM `".self::TABLE_NAME."`
         WHERE `id` = :id";
 
         $pdo = Database::getPDO();
